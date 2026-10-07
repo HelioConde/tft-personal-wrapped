@@ -55,3 +55,10 @@ button,input,select{font:inherit}.page{min-height:100vh}.shell{width:min(1180px,
   .big-number{font-size:3.5rem}
   .row{align-items:flex-start}
 }
+
+
+/* Visual audit follow-up — 07/10/2026 */
+.chip,.ghost{min-height:40px}
+@media(max-width:560px){
+  .chip,.ghost{min-height:40px}
+}
