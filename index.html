@@ -27,19 +27,19 @@
         <h1 data-i18n="hero">Seu set, contado como uma história.</h1>
         <p data-i18n="sub">Menos tabela, mais memória: descubra suas comps favoritas, augments marcantes, melhores resultados e recordes do período.</p>
         <form class="search" data-search>
-          <input name="riotId" value="HelioConde#BR1" aria-label="Riot ID">
+          <input name="riotId" placeholder="Nome#TAG" autocomplete="off" aria-label="Riot ID">
           <select name="region" aria-label="Servidor"><option value="br1">BR</option><option value="na1">NA</option><option value="euw1">EUW</option></select>
           <button class="primary" type="submit" data-i18n="search">Ver meu Wrapped</button>
         </form>
-        <p class="muted" data-mode-label>Modo demonstrativo — integração Riot preparada para backend.</p>
+        <p class="muted" data-mode-label aria-live="polite">Modo demonstrativo — pesquise um Riot ID para carregar dados reais.</p>
       </article>
       <article class="panel feature-card">
         <div>
           <div class="eyebrow" data-i18n="identity">Identidade do período</div>
           <div class="big-number">Flex</div>
-          <p class="muted" data-i18n="identityText">Você alternou comps com frequência e terminou melhor quando preservou opções até o estágio 4.</p>
+          <p class="muted" data-identity-text>A demonstracao mostra como a identidade do periodo sera resumida.</p>
         </div>
-        <div><strong class="good">Top 4 em 61%</strong><div class="muted">23 partidas analisadas</div></div>
+        <div data-feature-summary><strong class="good">Top 4 61%</strong><div class="muted">23 partidas</div></div>
       </article>
     </section>
 
@@ -75,7 +75,7 @@
         <div class="share-card">
           <div class="eyebrow" data-i18n="share">Compartilhar</div>
           <h2 data-i18n="shareTitle">Seu TFT Wrapped em um card.</h2>
-          <p class="muted" data-i18n="shareText">O MVP reserva este bloco para gerar PNG compartilhável sem poluir a análise principal.</p>
+          <p class="muted" data-i18n="shareText">Gere um PNG com os destaques do período e compartilhe seu resultado.</p>
           <button class="primary" type="button" data-share data-i18n="generate">Gerar card</button>
         </div>
       </article>
@@ -84,8 +84,9 @@
     </section>
   </main>
 
-  <footer class="shell footer">TFT Wrapped · protótipo standalone · PT-BR/EN · dados demonstrativos explícitos</footer>
+  <footer class="shell footer">TFT Wrapped · PT-BR/EN · dados Riot quando disponíveis · fallback demonstrativo explícito</footer>
 </div>
+<script src="backend-config.js"></script>
 <script src="app.js"></script>
 <script src="live-update.js"></script>
 </body>
