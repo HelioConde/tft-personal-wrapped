@@ -24,7 +24,7 @@ Transformar histórico bruto de partidas em uma história visual simples de ente
 
 ## Dados
 
-O protótipo começa com dados demonstrativos explicitamente identificados. A integração real deve acontecer no backend gamer/Supabase usando Riot API. A Riot API key nunca deve ir para o frontend.
+O frontend já está conectado ao backend gamer compartilhado do ZeroTwo por `riot-legacy-tft-profile`. A Riot API key permanece somente no servidor. Quando a consulta real falha, o modo demonstrativo continua explicitamente identificado.
 
 ## Regras de produto
 
@@ -52,12 +52,30 @@ Repositório oficial: `HelioConde/tft-personal-wrapped`.
 - regra global de live update;
 - checklist de QA.
 
-### Próxima etapa
+### Estado de finalização
 
-Conectar histórico real do TFT ao backend gamer, normalizar as partidas e substituir os dados demonstrativos; depois gerar o card PNG compartilhável.
+Implementado em 07/10/2026:
+
+- histórico TFT real via backend gamer;
+- normalização de 7 dias / 30 dias / Set;
+- comps derivadas de traits/unidades observadas;
+- unidades e augments mais recorrentes;
+- distribuição real de colocações e recordes do período;
+- estados de loading, vazio, Riot ID inválido, 404, 429 e indisponibilidade;
+- deep link com Riot ID/servidor/período/idioma;
+- card PNG 1200×630 com Web Share e fallback para download;
+- Browser E2E para dados reais mockados, mobile e rate limit;
+- workflows de QA e GitHub Pages.
+
+O gate restante é confirmar CI/Pages verdes e executar uma rodada real com Riot IDs TFT antes de congelar features.
 
 ## Desenvolvimento local
 
 ```bash
 python -m http.server 8080
 ```
+
+
+## Regra de encerramento
+
+Depois que QA/Pages estiverem verdes e a rodada real confirmar os dados, o **MVP 1.0 fica concluído**. A partir daí novas features ficam congeladas até feedback real, bug P0/P1, segurança/compliance ou mudança relevante da Riot.
