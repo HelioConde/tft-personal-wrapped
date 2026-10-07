@@ -258,6 +258,12 @@ function render() {
   if (langButton) langButton.textContent = lang === "pt" ? "EN" : "PT-BR";
   document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
 
+  document.querySelectorAll("[data-period]").forEach(button => {
+    const active = button.dataset.period === period;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+
   const identity = $(".big-number");
   if (identity) identity.textContent = data.identity || "—";
 
@@ -265,7 +271,7 @@ function render() {
   if (identityText) {
     identityText.textContent = source === "live"
       ? String(data.identity || "—") + " " + copy[lang].identitySuffix
-      : (lang === "pt" ? "A demonstracao mostra como a identidade do periodo sera resumida." : "The demo shows how the period identity will be summarized.");
+      : (lang === "pt" ? "A demonstração mostra como a identidade do período será resumida." : "The demo shows how the period identity will be summarized.");
   }
 
   const summary = $("[data-feature-summary]");
