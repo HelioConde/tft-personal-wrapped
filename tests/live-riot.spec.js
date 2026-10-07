@@ -4,7 +4,7 @@ test.describe("Live Riot smoke", () => {
   test.skip(process.env.LIVE_RIOT_SMOKE !== "1", "Runs only in the dedicated live Riot workflow.");
 
   test("loads the published TFT Wrapped with a real Riot ID", async ({ page }) => {
-    await page.goto("/?riotId=AlchemyFlames%23BR1&server=br1&period=month&lang=pt", {
+    await page.goto("./?riotId=AlchemyFlames%23BR1&server=br1&period=month&lang=pt", {
       waitUntil: "domcontentloaded"
     });
 
