@@ -67,7 +67,7 @@ Implementado em 07/10/2026:
 - Browser E2E para dados reais mockados, mobile e rate limit;
 - workflows de QA e GitHub Pages.
 
-O gate restante é confirmar CI/Pages verdes e executar uma rodada real com Riot IDs TFT antes de congelar features.
+O gate restante é confirmar CI/Pages verdes e concluir a validação real com Riot IDs TFT antes de congelar features. O repositório agora inclui `tests/live-riot.spec.js` e o workflow `Live Riot Smoke`, que testa a versão publicada com `AlchemyFlames#BR1` sem tornar o E2E comum dependente da API externa.
 
 ## Desenvolvimento local
 
