@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "check": "node --check app.js && node --check backend-config.js && node --check live-update.js",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "screenshots": "node scripts/capture-site.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0"
