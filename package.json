@@ -1,0 +1,12 @@
+{
+  "name": "tft-personal-wrapped",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "check": "node --check app.js && node --check backend-config.js && node --check live-update.js",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0"
+  }
+}
