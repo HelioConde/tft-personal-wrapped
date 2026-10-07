@@ -1,0 +1,75 @@
+{
+  "generatedAt": "2026-10-07T06:48:25.338Z",
+  "baseUrl": "http://127.0.0.1:4173/",
+  "captures": [
+    {
+      "name": "desktop-full.png",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "title": "TFT Wrapped — sua retrospectiva de TFT",
+      "width": 1440,
+      "height": 1973,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "overflow": [],
+      "smallTapTargets": [],
+      "tinyText": [],
+      "brokenImages": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "mobile-full.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "title": "TFT Wrapped — sua retrospectiva de TFT",
+      "width": 390,
+      "height": 3520,
+      "viewportWidth": 390,
+      "viewportHeight": 844,
+      "overflow": [],
+      "smallTapTargets": [
+        {
+          "tag": "button",
+          "id": "",
+          "className": "chip",
+          "width": 88,
+          "height": 35,
+          "text": "7 dias"
+        },
+        {
+          "tag": "button",
+          "id": "",
+          "className": "chip active",
+          "width": 88,
+          "height": 35,
+          "text": "30 dias"
+        },
+        {
+          "tag": "button",
+          "id": "",
+          "className": "chip",
+          "width": 88,
+          "height": 35,
+          "text": "Set"
+        },
+        {
+          "tag": "button",
+          "id": "",
+          "className": "ghost",
+          "width": 88,
+          "height": 35,
+          "text": "EN"
+        }
+      ],
+      "tinyText": [],
+      "brokenImages": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    }
+  ]
+}
