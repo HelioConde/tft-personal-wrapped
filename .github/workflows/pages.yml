@@ -10,6 +10,7 @@ on:
       - 'backend-config.js'
       - 'live-update.js'
       - 'privacidade.html'
+      - 'assets/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -36,6 +37,7 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html styles.css app.js backend-config.js live-update.js privacidade.html _site/
+          if [ -d assets ]; then cp -R assets _site/assets; fi
           printf '{"sha":"%s","publishedAt":"%s"}\n' "$DEPLOY_SHA" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > _site/version.json
           test -s _site/index.html
           test -s _site/version.json
