@@ -1,7 +1,7 @@
 # TFT Wrapped 1.0 — encerramento técnico e gate de publicação
 
 **Data:** 09/10/2026
-**Status:** núcleo funcional concluído e testado; **ainda não publicado no GitHub Pages**. Não anunciar o MVP como lançado antes de concluir a configuração administrativa e testar a versão pública.
+**Status:** núcleo funcional concluído e **publicado no GitHub Pages em 09/10/2026 como beta técnico**. O deploy e o teste da página real passaram; homologação de dispositivos, outros jogadores e requisitos Riot ainda é necessária antes de abertura comercial ampla.
 
 ## Evidências verificadas
 
@@ -15,23 +15,23 @@
 - [x] **Atualização de versão:** somente registros de SW e caches do escopo TFT Wrapped podem ser modificados, preservando os demais projetos do mesmo domínio.
 - [x] **Histórico TFT:** renderização de métricas, comps, augments, unidades, recordes e PNG 1200×630 implementados; fluxo de UI coberto com dados mockados.
 
-## Bloqueio de publicação (requer ação de quem administra o GitHub)
+## Publicação — concluída
 
-O repositório informa `has_pages=false`. O workflow [Deploy GitHub Pages](https://github.com/HelioConde/tft-personal-wrapped/actions/workflows/pages.yml) falha no `actions/configure-pages@v5` antes de publicar:
+O proprietário habilitou **Settings → Pages → Source: GitHub Actions**; o repositório passou a informar `has_pages=true`.
 
-`Create Pages site failed. Resource not accessible by integration`
+- [x] [Deploy GitHub Pages passou](https://github.com/HelioConde/tft-personal-wrapped/actions/runs/37978660982), commit `ffc06659dc4aa7d2c956f6def8a1dd86d5958b7d`.
+- [x] [QA completo do workflow aprovado](https://github.com/HelioConde/tft-personal-wrapped/actions/runs/37978736711).
+- [x] [Teste de navegador publicado com Riot ID de teste aprovado](https://github.com/HelioConde/tft-personal-wrapped/actions/runs/37978819124), 1 teste Playwright na página pública.
+- [x] Publicação do conjunto mínimo de arquivos `index.html`, estilos, scripts e privacidade; `version.json` é carimbado com SHA de deploy real.
+- [x] Workflow `Live Riot Smoke` dispara o teste da página após cada Pages bem-sucedido; a consulta de backend separada continua independente.
 
-A conexão atual pode modificar o repositório mas não possui autorização administrativa para criar o Pages site. **Não é corrigível apenas com uma mudança no workflow.**
+**Link:** https://helioconde.github.io/tft-personal-wrapped/
 
-1. Abrir [Settings → Pages](https://github.com/HelioConde/tft-personal-wrapped/settings/pages) autenticado como proprietário.
-2. Em **Build and deployment**, selecionar **Source: GitHub Actions** e salvar.
-3. Abrir [Deploy GitHub Pages](https://github.com/HelioConde/tft-personal-wrapped/actions/workflows/pages.yml) e executar **Run workflow** em `main`.
-4. Após publicação, abrir `https://helioconde.github.io/tft-personal-wrapped/` e verificar o formulário e o perfil.
-5. Rodar [Live Riot Smoke](https://github.com/HelioConde/tft-personal-wrapped/actions/workflows/live-riot-smoke.yml) **manualmente**, o que acrescenta o teste Playwright do site real ao teste da API.
+**Limite do teste publicado:** confirma renderização e fluxo da consulta na página real; o teste de backend em separado confirma 20 partidas. Não substitui teste de PNG no aparelho, outras regiões ou aprovação da Riot.
 
 ## Gates externos/humanos
 
-- [ ] Concluir Pages, publicar e validar o link de produção.
+- [x] Concluir Pages, publicar e executar teste de navegação no link de produção.
 - [ ] Validar com dois outros Riot IDs que possuam partidas TFT, preferencialmente de regiões diferentes, e conta com 0 partidas recentes.
 - [ ] Validar tradução dos nomes de traits/unidades/augments com dados reais de diferentes sets; a normalização atual remove prefixos técnicos e não substitui um dicionário oficial localizado.
 - [ ] Exportar PNG e testar o compartilhamento em celular real; o fluxo em código não substitui o teste no aparelho.
