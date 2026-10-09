@@ -10,7 +10,6 @@ on:
       - 'backend-config.js'
       - 'live-update.js'
       - 'privacidade.html'
-      - 'version.json'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -31,14 +30,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # One-time repository Settings → Pages → Source: GitHub Actions is required.
-      # This GitHub App cannot create a new Pages site (administration permission).
+      - name: Assemble static site and stamp deployed revision
+        env:
+          DEPLOY_SHA: ${{ github.sha }}
+        run: |
+          mkdir -p _site
+          cp index.html styles.css app.js backend-config.js live-update.js privacidade.html _site/
+          printf '{"sha":"%s","publishedAt":"%s"}\n' "$DEPLOY_SHA" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > _site/version.json
+          test -s _site/index.html
+          test -s _site/version.json
+      # Pages must first be enabled from repository Settings → Pages.
+      # It is already enabled. Do not request elevated admin access to create it.
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: .
+          path: _site
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
