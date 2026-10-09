@@ -32,6 +32,7 @@
         <div class="eyebrow" data-i18n="eyebrow">Sua história recente no TFT</div>
         <h1 data-i18n="hero">Seu set, contado como uma história.</h1>
         <p data-i18n="sub">Menos tabela, mais memória: descubra suas comps favoritas, augments marcantes, melhores resultados e recordes do período.</p>
+        <p class="sample-note muted" data-i18n="sample">A retrospectiva usa até 20 partidas recentes disponíveis na Riot, não o histórico completo do set.</p>
         <form class="search" data-search>
           <input name="riotId" placeholder="Nome#TAG" autocomplete="off" aria-label="Riot ID">
           <select name="region" aria-label="Servidor"><option value="br1">BR</option><option value="na1">NA</option><option value="euw1">EUW</option><option value="eun1">EUNE</option><option value="kr">KR</option><option value="jp1">JP</option><option value="la1">LAN</option><option value="la2">LAS</option><option value="oc1">OCE</option></select>
@@ -86,11 +87,11 @@
         </div>
       </article>
 
-      <div class="span-12 ad-slot">Espaço reservado para anúncio — sem bloquear conteúdo ou interação</div>
+      <div class="span-12 ad-slot" hidden aria-hidden="true"></div>
     </section>
   </main>
 
-  <footer class="shell footer">TFT Wrapped · PT-BR/EN · dados Riot quando disponíveis · fallback demonstrativo explícito</footer>
+  <footer class="shell footer">TFT Wrapped · PT-BR/EN · amostra recente da Riot, nunca histórico completo · <a href="privacidade.html">Privacidade e transparência</a><p>Não é endossado pela Riot Games. Teamfight Tactics e marcas associadas pertencem à Riot Games, Inc.</p></footer>
 </div>
 <script src="backend-config.js"></script>
 <script src="app.js"></script>
