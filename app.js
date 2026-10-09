@@ -10,6 +10,7 @@ const copy = {
     demo: "Modo demonstrativo — pesquise um Riot ID para carregar dados reais.",
     live: "Dados Riot reais · até 20 partidas recentes consultadas",
     stale: "Dados Riot salvos anteriormente · podem estar desatualizados",
+    staleEmpty: "Dados atuais indisponíveis; o cache antigo não contém partidas TFT para esta retrospectiva.",
     empty: "Nenhuma partida TFT encontrada neste periodo.",
     invalid: "Use um Riot ID no formato Nome#TAG.",
     notFound: "Riot ID nao encontrado.",
@@ -27,6 +28,7 @@ const copy = {
     demo: "Demo mode — search a Riot ID to load live data.",
     live: "Live Riot data · up to 20 recent matches consulted",
     stale: "Previously cached Riot data · may be outdated",
+    staleEmpty: "Current data unavailable; the older cache has no TFT matches for this recap.",
     empty: "No TFT matches were found for this period.",
     invalid: "Use a Riot ID in the Name#TAG format.",
     notFound: "Riot ID was not found.",
@@ -46,6 +48,7 @@ const i18n = {
     eyebrow: "Sua historia recente no TFT",
     hero: "Seu set, contado como uma historia.",
     sub: "Menos tabela, mais memoria: descubra suas comps favoritas, augments marcantes, melhores resultados e recordes do periodo.",
+    sample: "A retrospectiva usa até 20 partidas recentes disponíveis na Riot, não o histórico completo do set.",
     search: "Ver meu Wrapped",
     identity: "Identidade do periodo",
     comps: "Comps que definiram seu periodo",
@@ -62,6 +65,7 @@ const i18n = {
     eyebrow: "Your recent TFT story",
     hero: "Your set, told like a story.",
     sub: "Less spreadsheet, more memory: see your favorite comps, standout augments, best finishes and personal records.",
+    sample: "This recap covers up to 20 recent Riot matches, not your full set history.",
     search: "See my Wrapped",
     identity: "Period identity",
     comps: "Comps that defined your period",
@@ -284,7 +288,7 @@ function render() {
     summary.innerHTML = '<strong class="good">Top 4 ' + esc(data.top4) + '</strong><div class="muted">' + fmt(data.games) + ' ' + copy[lang].games + (currentPlayer ? ' · ' + esc(currentPlayer.gameName + "#" + currentPlayer.tagLine) : "") + '</div>';
   }
 
-  if (source === "live") setStatus(!data.games ? "empty" : liveIsStale ? "stale" : "live");
+  if (source === "live") setStatus(!data.games ? (liveIsStale ? "staleEmpty" : "empty") : liveIsStale ? "stale" : "live");
 }
 
 function updateUrl() {
