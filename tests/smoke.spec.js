@@ -66,3 +66,51 @@ test("handles Riot rate limit without crashing", async ({ page }) => {
   await page.getByRole("button", { name: "Ver meu Wrapped" }).click();
   await expect(page.locator("[data-mode-label]")).toContainText("Limite temporario");
 });
+
+
+test("discloses an older cached Riot result instead of calling it current", async ({ page }) => {
+  await page.route("**/riot-legacy-tft-profile", route => route.fulfill({
+    status: 200,
+    contentType: "application/json",
+    body: JSON.stringify({ ...livePayload, cacheMeta: { stale: true, snapshotDate: "2026-09-01" } })
+  }));
+  await page.goto("/");
+  await page.getByLabel("Riot ID").fill("AlchemyFlames#BR1");
+  await page.getByRole("button", { name: "Ver meu Wrapped" }).click();
+  await expect(page.locator("[data-mode-label]")).toContainText("salvos anteriormente");
+  await expect(page.locator('[data-metric="games"]')).toHaveText("3");
+});
+
+test("does not silently truncate invalid Riot IDs before calling the backend", async ({ page }) => {
+  let calls = 0;
+  await page.route("**/riot-legacy-tft-profile", route => {
+    calls += 1;
+    return route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(livePayload) });
+  });
+  await page.goto("/");
+  await page.getByLabel("Riot ID").fill("VeryLongGameName17#BR1");
+  await page.getByRole("button", { name: "Ver meu Wrapped" }).click();
+  await expect(page.locator("[data-mode-label]")).toContainText("formato Nome#TAG");
+  expect(calls).toBe(0);
+});
+
+test("a second Riot search wins even when the previous request resolves later", async ({ page }) => {
+  await page.route("**/riot-legacy-tft-profile", async route => {
+    const body = route.request().postDataJSON();
+    if (body.gameName === "SlowPlayer") await new Promise(resolve => setTimeout(resolve, 900));
+    try {
+      await route.fulfill({
+        status: 200, contentType: "application/json",
+        body: JSON.stringify({ ...livePayload, player: { ...livePayload.player, gameName: body.gameName } })
+      });
+    } catch { /* The first request may be cancelled as intended. */ }
+  });
+  await page.goto("/");
+  await page.getByLabel("Riot ID").fill("SlowPlayer#BR1");
+  await page.getByRole("button", { name: "Ver meu Wrapped" }).click();
+  await page.getByLabel("Riot ID").fill("FastPlayer#BR1");
+  await page.getByRole("button", { name: "Ver meu Wrapped" }).click();
+  await expect(page.locator("[data-feature-summary]")).toContainText("FastPlayer#BR1");
+  await page.waitForTimeout(1100);
+  await expect(page.locator("[data-feature-summary]")).not.toContainText("SlowPlayer#BR1");
+});
