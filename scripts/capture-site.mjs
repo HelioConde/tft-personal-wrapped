@@ -53,7 +53,7 @@ async function capture(name, viewport, populated = false) {
   if (populated) {
     await page.getByLabel("Riot ID").fill("VisualReference#BR1");
     await page.getByRole("button", { name: "Ver meu Wrapped" }).click();
-    await page.locator('[data-metric="games"]').getByText("3").waitFor({ timeout: 10000 });
+    await page.waitForFunction(() => document.querySelector('[data-metric="games"]')?.textContent?.trim() === "3", null, { timeout: 10000 });
   }
   await page.waitForTimeout(500);
 
