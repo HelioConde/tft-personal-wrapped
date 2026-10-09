@@ -8,8 +8,34 @@ await fs.mkdir(outputDir, { recursive: true });
 
 const browser = await chromium.launch({ headless: true });
 
-async function capture(name, viewport) {
+async function capture(name, viewport, populated = false) {
   const page = await browser.newPage({ viewport });
+  if (populated) {
+    // Deterministic Riot-shaped dataset so screenshots cover the real-data UI,
+    // without network, Riot rate limits or guessing any user's actual history.
+    const now = Date.now();
+    const payload = {
+      player: { gameName: "VisualReference", tagLine: "BR1", platform: "BR1" },
+      summary: { matches: 3, averagePlacement: 2.67, top4Rate: 100, firsts: 1 },
+      matches: [
+        { id: "visual-1", playedAt: now - 86400000, placement: 1, setNumber: 18,
+          traits: [{ name: "TFT18_Sorcerer", style: 3 }], units: [
+            { characterId: "TFT18_Ahri" }, { characterId: "TFT18_Taric" }],
+          augments: ["TFT_Augment_JeweledLotus"] },
+        { id: "visual-2", playedAt: now - 172800000, placement: 3, setNumber: 18,
+          traits: [{ name: "TFT18_Sorcerer", style: 2 }], units: [
+            { characterId: "TFT18_Ahri" }, { characterId: "TFT18_Shen" }],
+          augments: ["TFT_Augment_JeweledLotus"] },
+        { id: "visual-3", playedAt: now - 259200000, placement: 4, setNumber: 18,
+          traits: [{ name: "TFT18_Bastion", style: 2 }], units: [
+            { characterId: "TFT18_Taric" }, { characterId: "TFT18_Shen" }],
+          augments: ["TFT_Augment_PandorasItems"] }
+      ]
+    };
+    await page.route("**/public-tft-profile", route => route.fulfill({
+      status: 200, contentType: "application/json", body: JSON.stringify(payload)
+    }));
+  }
   const consoleErrors = [];
   const failedRequests = [];
 
@@ -24,7 +50,12 @@ async function capture(name, viewport) {
   });
 
   await page.goto(baseUrl, { waitUntil: "domcontentloaded", timeout: 30000 });
-  await page.waitForTimeout(1800);
+  if (populated) {
+    await page.getByLabel("Riot ID").fill("VisualReference#BR1");
+    await page.getByRole("button", { name: "Ver meu Wrapped" }).click();
+    await page.locator('[data-metric="games"]').getByText("3").waitFor({ timeout: 10000 });
+  }
+  await page.waitForTimeout(500);
 
   const audit = await page.evaluate(() => {
     const visible = element => {
@@ -116,6 +147,7 @@ async function capture(name, viewport) {
 
   return {
     name,
+    variant: populated ? "Riot-shaped fixture" : "explicit demo",
     viewport,
     ...audit,
     consoleErrors: consoleErrors.slice(0, 20),
@@ -125,7 +157,9 @@ async function capture(name, viewport) {
 
 const captures = [
   await capture("desktop-full.png", { width: 1440, height: 1000 }),
-  await capture("mobile-full.png", { width: 390, height: 844 })
+  await capture("mobile-full.png", { width: 390, height: 844 }),
+  await capture("desktop-populated.png", { width: 1440, height: 1000 }, true),
+  await capture("mobile-populated.png", { width: 390, height: 844 }, true)
 ];
 
 await browser.close();
