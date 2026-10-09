@@ -114,3 +114,25 @@ test("a second Riot search wins even when the previous request resolves later", 
   await page.waitForTimeout(1100);
   await expect(page.locator("[data-feature-summary]")).not.toContainText("SlowPlayer#BR1");
 });
+
+
+test("privacy, Riot attribution and sample limit remain accessible in both languages", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("[data-i18n=sample]")).toContainText("até 20 partidas");
+  await page.locator("[data-lang]").click();
+  await expect(page.locator("[data-i18n=sample]")).toContainText("up to 20 recent Riot matches");
+  await page.locator('footer a[href="privacidade.html"]').click();
+  await expect(page.getByRole("heading", { name: "Transparência sobre sua retrospectiva." })).toBeVisible();
+  await expect(page.locator("main")).toContainText("não o histórico completo");
+});
+
+test("identifies an empty historical cache as unavailable, not a real empty set", async ({ page }) => {
+  await page.route("**/public-tft-profile", route => route.fulfill({
+    status: 200, contentType: "application/json",
+    body: JSON.stringify({ player: livePayload.player, matches: [], summary: { matches: 0 }, cacheMeta: { stale: true } })
+  }));
+  await page.goto("/");
+  await page.getByLabel("Riot ID").fill("AlchemyFlames#BR1");
+  await page.getByRole("button", { name: "Ver meu Wrapped" }).click();
+  await expect(page.locator("[data-mode-label]")).toContainText("cache antigo não contém partidas");
+});
