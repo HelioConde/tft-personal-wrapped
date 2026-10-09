@@ -26,7 +26,7 @@ const livePayload = {
 };
 
 async function mockRiot(page) {
-  await page.route("**/riot-legacy-tft-profile", async route => {
+  await page.route("**/public-tft-profile", async route => {
     await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(livePayload) });
   });
 }
@@ -54,7 +54,7 @@ test("persists English and remains usable on mobile without horizontal overflow"
 });
 
 test("handles Riot rate limit without crashing", async ({ page }) => {
-  await page.route("**/riot-legacy-tft-profile", async route => {
+  await page.route("**/public-tft-profile", async route => {
     await route.fulfill({
       status: 200,
       contentType: "application/json",
@@ -69,7 +69,7 @@ test("handles Riot rate limit without crashing", async ({ page }) => {
 
 
 test("discloses an older cached Riot result instead of calling it current", async ({ page }) => {
-  await page.route("**/riot-legacy-tft-profile", route => route.fulfill({
+  await page.route("**/public-tft-profile", route => route.fulfill({
     status: 200,
     contentType: "application/json",
     body: JSON.stringify({ ...livePayload, cacheMeta: { stale: true, snapshotDate: "2026-09-01" } })
@@ -83,7 +83,7 @@ test("discloses an older cached Riot result instead of calling it current", asyn
 
 test("does not silently truncate invalid Riot IDs before calling the backend", async ({ page }) => {
   let calls = 0;
-  await page.route("**/riot-legacy-tft-profile", route => {
+  await page.route("**/public-tft-profile", route => {
     calls += 1;
     return route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(livePayload) });
   });
@@ -95,7 +95,7 @@ test("does not silently truncate invalid Riot IDs before calling the backend", a
 });
 
 test("a second Riot search wins even when the previous request resolves later", async ({ page }) => {
-  await page.route("**/riot-legacy-tft-profile", async route => {
+  await page.route("**/public-tft-profile", async route => {
     const body = route.request().postDataJSON();
     if (body.gameName === "SlowPlayer") await new Promise(resolve => setTimeout(resolve, 900));
     try {
