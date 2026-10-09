@@ -123,7 +123,7 @@ test("privacy, Riot attribution and sample limit remain accessible in both langu
   await expect(page.locator("[data-i18n=sample]")).toContainText("up to 20 recent Riot matches");
   await page.locator('footer a[href="privacidade.html"]').click();
   await expect(page.getByRole("heading", { name: "Transparência sobre sua retrospectiva." })).toBeVisible();
-  await expect(page.locator("main")).toContainText("não o histórico completo");
+  await expect(page.locator("main")).toContainText("não todo o histórico da sua conta");
 });
 
 test("identifies an empty historical cache as unavailable, not a real empty set", async ({ page }) => {
