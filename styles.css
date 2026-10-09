@@ -62,3 +62,15 @@ button,input,select{font:inherit}.page{min-height:100vh}.shell{width:min(1180px,
 @media(max-width:560px){
   .chip,.ghost{min-height:40px}
 }
+
+/* Release v1 — readable scope and accessible disclosure links */
+.sample-note{font-size:.84rem!important;line-height:1.55;margin:12px 0 0!important;max-width:64ch}
+.footer a,.legal-content a{color:#f3d77b;text-decoration:underline;text-underline-offset:3px}
+.footer a{display:inline-flex;align-items:center;min-height:40px;padding:7px 0}
+.footer p{margin:8px 0 0;line-height:1.6}
+.legal-content{max-width:900px;margin:28px auto 40px}
+.legal-content h1{font-size:clamp(2rem,5vw,3.3rem);line-height:1.08;letter-spacing:-.035em}
+.legal-content h2{font-size:1.15rem;margin-top:26px}
+.legal-content p{font-size:1rem;line-height:1.7;color:var(--muted)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #f3d77b;outline-offset:3px}
+[hidden]{display:none!important}
