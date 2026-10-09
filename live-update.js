@@ -4,6 +4,7 @@
   const VERSION_URL = 'version.json';
   const CACHE_BUST_PARAM = '__v';
   const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '::1']);
+  const APP_SCOPE = new URL('./', document.currentScript?.src || window.location.href).pathname;
   if (LOCAL_HOSTS.has(window.location.hostname)) return;
   const url = new URL(window.location.href);
   if (url.searchParams.has(CACHE_BUST_PARAM)) {
@@ -32,8 +33,8 @@
     return notice;
   }
   async function refreshRuntimeCaches() {
-    try { if ('serviceWorker' in navigator) { const registrations = await navigator.serviceWorker.getRegistrations(); await Promise.allSettled(registrations.map(r=>r.update())); } } catch {}
-    try { if ('caches' in window) { const keys = await caches.keys(); await Promise.allSettled(keys.map(key=>caches.delete(key))); } } catch {}
+    try { if ('serviceWorker' in navigator) { const registrations = await navigator.serviceWorker.getRegistrations(); await Promise.allSettled(registrations.filter(r=>new URL(r.scope).pathname === APP_SCOPE).map(r=>r.update())); } } catch {}
+    try { if ('caches' in window) { const keys = await caches.keys(); await Promise.allSettled(keys.filter(key=>key.startsWith('tft-wrapped-')).map(key=>caches.delete(key))); } } catch {}
   }
   async function reloadFresh(nextVersion) {
     if (reloading) return;
