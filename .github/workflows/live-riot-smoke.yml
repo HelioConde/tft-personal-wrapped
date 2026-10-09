@@ -7,6 +7,9 @@ on:
       - "scripts/live-backend-smoke.mjs"
       - ".github/workflows/live-riot-smoke.yml"
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Deploy GitHub Pages"]
+    types: [completed]
   schedule:
     - cron: "17 10 * * 1"
 
@@ -15,6 +18,7 @@ permissions:
 
 jobs:
   backend-contract:
+    if: github.event_name != 'workflow_run'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -26,7 +30,7 @@ jobs:
         run: node scripts/live-backend-smoke.mjs
 
   published-site:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
