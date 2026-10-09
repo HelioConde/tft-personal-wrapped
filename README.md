@@ -71,9 +71,9 @@ Implementado em 07/10/2026:
 
 **Status técnico de 09/10/2026:** QA e capturas automáticas aprovados; regressões de cache antigo, Riot ID inválido, buscas concorrentes, limite de 20 partidas e privacidade cobertas. O endpoint TFT real respondeu com 20 partidas. Foram adicionadas capturas de painel preenchido em desktop e mobile.
 
-**Bloqueio de publicação:** o GitHub Pages do repositório ainda não foi habilitado. A conexão GitHub possui permissão para modificar arquivos, mas **não para criar o site Pages**. Habilite uma vez em [Settings → Pages](https://github.com/HelioConde/tft-personal-wrapped/settings/pages), escolhendo **Source: GitHub Actions**, e reexecute o workflow [Deploy GitHub Pages](https://github.com/HelioConde/tft-personal-wrapped/actions/workflows/pages.yml). Até lá o projeto **não está publicado**, e a versão pública não pode ser homologada.
+**Publicação concluída em 09/10/2026:** Pages habilitado pelo proprietário, [deploy aprovado](https://github.com/HelioConde/tft-personal-wrapped/actions/runs/37978660982), [teste de navegador na produção com consulta Riot aprovado](https://github.com/HelioConde/tft-personal-wrapped/actions/runs/37978819124). Acesse o [TFT Wrapped publicado](https://helioconde.github.io/tft-personal-wrapped/). O workflow de deploy agora publica somente os assets do site e inclui o SHA real em `version.json`.
 
-O workflow `Live Riot Smoke` valida a API real independentemente do Pages; a validação da página publicada só roda via disparo manual após sua habilitação. Consulte o [relatório técnico do MVP](RELEASE_V1.md).
+O workflow `Live Riot Smoke` valida a API real independentemente do Pages e roda o teste da página publicada automaticamente após cada deploy de produção bem-sucedido. Consulte o [relatório técnico do MVP](RELEASE_V1.md).
 
 ## Desenvolvimento local
 
@@ -84,4 +84,4 @@ python -m http.server 8080
 
 ## Regra de encerramento
 
-O **núcleo técnico do MVP está concluído**, mas o lançamento 1.0 depende do GitHub Pages, homologação em dispositivo real e mais contas TFT. Novas features estão congeladas até feedback real, bug P0/P1, segurança/compliance ou mudança relevante da Riot.
+O **núcleo técnico do MVP está publicado como beta**, mas o lançamento 1.0 amplo depende de homologação em dispositivo real, mais contas TFT e requisitos da Riot. Novas features estão congeladas até feedback real, bug P0/P1, segurança/compliance ou mudança relevante da Riot.
