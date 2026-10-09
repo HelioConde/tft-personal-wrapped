@@ -24,7 +24,9 @@ Transformar histórico bruto de partidas em uma história visual simples de ente
 
 ## Dados
 
-O frontend já está conectado ao backend gamer compartilhado do ZeroTwo por `riot-legacy-tft-profile`. A Riot API key permanece somente no servidor. Quando a consulta real falha, o modo demonstrativo continua explicitamente identificado.
+**Fonte atual:** `public-tft-profile` no Supabase gamer compartilhado do ZeroTwo. Em 09/10/2026 a API direta retornou 20 partidas reais de `AlchemyFlames#BR1` em ~9 segundos; o antigo intermediário `riot-legacy-tft-profile` tinha timeout de 5,5 s e devolvia um cache antigo vazio. O frontend agora usa o endpoint direto e até 35 s para concluir a consulta. A chave Riot permanece somente no servidor. Em falha, o modo demonstrativo fica explicitamente identificado.
+
+**Limitação essencial:** semana, mês e set filtram **no máximo 20 partidas recentes recebidas**; não significam um histórico integral do set ou da conta.
 
 ## Regras de produto
 
@@ -67,7 +69,11 @@ Implementado em 07/10/2026:
 - Browser E2E para dados reais mockados, mobile e rate limit;
 - workflows de QA e GitHub Pages.
 
-O gate restante é confirmar CI/Pages verdes e concluir a validação real com Riot IDs TFT antes de congelar features. O repositório agora inclui `tests/live-riot.spec.js` e o workflow `Live Riot Smoke`, que testa a versão publicada com `AlchemyFlames#BR1` sem tornar o E2E comum dependente da API externa.
+**Status técnico de 09/10/2026:** QA e capturas automáticas aprovados; regressões de cache antigo, Riot ID inválido, buscas concorrentes, limite de 20 partidas e privacidade cobertas. O endpoint TFT real respondeu com 20 partidas. Foram adicionadas capturas de painel preenchido em desktop e mobile.
+
+**Bloqueio de publicação:** o GitHub Pages do repositório ainda não foi habilitado. A conexão GitHub possui permissão para modificar arquivos, mas **não para criar o site Pages**. Habilite uma vez em [Settings → Pages](https://github.com/HelioConde/tft-personal-wrapped/settings/pages), escolhendo **Source: GitHub Actions**, e reexecute o workflow [Deploy GitHub Pages](https://github.com/HelioConde/tft-personal-wrapped/actions/workflows/pages.yml). Até lá o projeto **não está publicado**, e a versão pública não pode ser homologada.
+
+O workflow `Live Riot Smoke` valida a API real independentemente do Pages; a validação da página publicada só roda via disparo manual após sua habilitação. Consulte o [relatório técnico do MVP](RELEASE_V1.md).
 
 ## Desenvolvimento local
 
@@ -78,4 +84,4 @@ python -m http.server 8080
 
 ## Regra de encerramento
 
-Depois que QA/Pages estiverem verdes e a rodada real confirmar os dados, o **MVP 1.0 fica concluído**. A partir daí novas features ficam congeladas até feedback real, bug P0/P1, segurança/compliance ou mudança relevante da Riot.
+O **núcleo técnico do MVP está concluído**, mas o lançamento 1.0 depende do GitHub Pages, homologação em dispositivo real e mais contas TFT. Novas features estão congeladas até feedback real, bug P0/P1, segurança/compliance ou mudança relevante da Riot.
