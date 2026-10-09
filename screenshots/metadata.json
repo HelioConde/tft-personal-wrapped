@@ -1,29 +1,21 @@
 {
-  "generatedAt": "2026-10-09T18:51:34.654Z",
+  "generatedAt": "2026-10-09T18:52:17.999Z",
   "baseUrl": "http://127.0.0.1:4173/",
   "captures": [
     {
       "name": "desktop-full.png",
+      "variant": "explicit demo",
       "viewport": {
         "width": 1440,
         "height": 1000
       },
       "title": "TFT Wrapped — sua retrospectiva de TFT",
       "width": 1440,
-      "height": 2003,
+      "height": 2000,
       "viewportWidth": 1440,
       "viewportHeight": 1000,
       "overflow": [],
-      "smallTapTargets": [
-        {
-          "tag": "a",
-          "id": "",
-          "className": "",
-          "width": 201,
-          "height": 16,
-          "text": "Privacidade e transparência"
-        }
-      ],
+      "smallTapTargets": [],
       "tinyText": [],
       "brokenImages": [],
       "consoleErrors": [],
@@ -31,13 +23,52 @@
     },
     {
       "name": "mobile-full.png",
+      "variant": "explicit demo",
       "viewport": {
         "width": 390,
         "height": 844
       },
       "title": "TFT Wrapped — sua retrospectiva de TFT",
       "width": 390,
-      "height": 3624,
+      "height": 3623,
+      "viewportWidth": 390,
+      "viewportHeight": 844,
+      "overflow": [],
+      "smallTapTargets": [],
+      "tinyText": [],
+      "brokenImages": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "desktop-populated.png",
+      "variant": "Riot-shaped fixture",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "title": "TFT Wrapped — sua retrospectiva de TFT",
+      "width": 1440,
+      "height": 1797,
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "overflow": [],
+      "smallTapTargets": [],
+      "tinyText": [],
+      "brokenImages": [],
+      "consoleErrors": [],
+      "failedRequests": []
+    },
+    {
+      "name": "mobile-populated.png",
+      "variant": "Riot-shaped fixture",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "title": "TFT Wrapped — sua retrospectiva de TFT",
+      "width": 390,
+      "height": 3430,
       "viewportWidth": 390,
       "viewportHeight": 844,
       "overflow": [],
