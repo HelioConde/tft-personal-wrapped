@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T18:48:40.372Z",
+  "generatedAt": "2026-10-09T18:49:17.928Z",
   "baseUrl": "http://127.0.0.1:4173/",
   "captures": [
     {
@@ -10,11 +10,20 @@
       },
       "title": "TFT Wrapped — sua retrospectiva de TFT",
       "width": 1440,
-      "height": 1973,
+      "height": 2003,
       "viewportWidth": 1440,
       "viewportHeight": 1000,
       "overflow": [],
-      "smallTapTargets": [],
+      "smallTapTargets": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "",
+          "width": 201,
+          "height": 16,
+          "text": "Privacidade e transparência"
+        }
+      ],
       "tinyText": [],
       "brokenImages": [],
       "consoleErrors": [],
@@ -28,7 +37,7 @@
       },
       "title": "TFT Wrapped — sua retrospectiva de TFT",
       "width": 390,
-      "height": 3525,
+      "height": 3624,
       "viewportWidth": 390,
       "viewportHeight": 844,
       "overflow": [],
