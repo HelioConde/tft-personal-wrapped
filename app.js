@@ -8,7 +8,8 @@ const copy = {
   pt: {
     loading: "Consultando seu historico TFT...",
     demo: "Modo demonstrativo — pesquise um Riot ID para carregar dados reais.",
-    live: "Dados Riot reais · amostra recente disponivel",
+    live: "Dados Riot reais · até 20 partidas recentes consultadas",
+    stale: "Dados Riot salvos anteriormente · podem estar desatualizados",
     empty: "Nenhuma partida TFT encontrada neste periodo.",
     invalid: "Use um Riot ID no formato Nome#TAG.",
     notFound: "Riot ID nao encontrado.",
@@ -24,7 +25,8 @@ const copy = {
   en: {
     loading: "Loading your TFT history...",
     demo: "Demo mode — search a Riot ID to load live data.",
-    live: "Live Riot data · recent sample available",
+    live: "Live Riot data · up to 20 recent matches consulted",
+    stale: "Previously cached Riot data · may be outdated",
     empty: "No TFT matches were found for this period.",
     invalid: "Use a Riot ID in the Name#TAG format.",
     notFound: "Riot ID was not found.",
@@ -75,12 +77,15 @@ const i18n = {
 };
 
 let period = "month";
-let lang = localStorage.getItem("tft-wrapped-lang") || "pt";
+let lang = localStorage.getItem("tft-wrapped-lang") === "en" ? "en" : "pt";
 let source = "demo";
 let liveMatches = [];
 let currentPlayer = null;
 let currentLookup = null;
 let currentData = demo.month;
+let liveIsStale = false;
+let latestLookupId = 0;
+let activeLookupController = null;
 
 const $ = selector => document.querySelector(selector);
 const esc = value => String(value == null ? "" : value).replace(/[&<>"']/g, char => ({
@@ -110,8 +115,8 @@ function parseRiotId(value) {
   if (split <= 0) return null;
   const gameName = raw.slice(0, split).trim();
   const tagLine = raw.slice(split + 1).trim();
-  if (!gameName || !tagLine) return null;
-  return { gameName: gameName.slice(0, 16), tagLine: tagLine.slice(0, 5) };
+  if (!gameName || !tagLine || gameName.length > 16 || tagLine.length > 5) return null;
+  return { gameName, tagLine };
 }
 
 function matchesForPeriod() {
@@ -279,7 +284,7 @@ function render() {
     summary.innerHTML = '<strong class="good">Top 4 ' + esc(data.top4) + '</strong><div class="muted">' + fmt(data.games) + ' ' + copy[lang].games + (currentPlayer ? ' · ' + esc(currentPlayer.gameName + "#" + currentPlayer.tagLine) : "") + '</div>';
   }
 
-  if (source === "live") setStatus(data.games ? "live" : "empty");
+  if (source === "live") setStatus(!data.games ? "empty" : liveIsStale ? "stale" : "live");
 }
 
 function updateUrl() {
@@ -293,6 +298,13 @@ function updateUrl() {
 }
 
 async function loadProfile(gameName, tagLine, platform) {
+  // A later lookup must never be overwritten by an earlier, slow Riot response.
+  activeLookupController?.abort();
+  const lookupId = ++latestLookupId;
+  const controller = new AbortController();
+  activeLookupController = controller;
+  currentPlayer = null;
+  liveIsStale = false;
   const endpoint = window.TFT_WRAPPED_BACKEND && window.TFT_WRAPPED_BACKEND.tftProfile;
   if (!endpoint) {
     source = "demo";
@@ -302,7 +314,6 @@ async function loadProfile(gameName, tagLine, platform) {
   }
 
   setStatus("loading");
-  const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 16000);
 
   try {
@@ -313,6 +324,7 @@ async function loadProfile(gameName, tagLine, platform) {
       signal: controller.signal
     });
     const data = await response.json().catch(() => ({}));
+    if (lookupId !== latestLookupId) return;
     const transport = data && data._transportError;
     const status = Number((transport && transport.status) || response.status || 0);
     const code = String((transport && transport.code) || data.error || "");
@@ -327,17 +339,21 @@ async function loadProfile(gameName, tagLine, platform) {
     }
 
     liveMatches = Array.isArray(data.matches) ? data.matches : [];
+    liveIsStale = data.cacheMeta?.stale === true;
     currentPlayer = data.player || { gameName, tagLine, platform: platform.toUpperCase() };
     currentLookup = { gameName, tagLine, platform };
     source = "live";
     updateUrl();
     render();
   } catch {
+    if (lookupId !== latestLookupId) return;
     source = "demo";
+    liveIsStale = false;
     setStatus("error");
     render();
   } finally {
     clearTimeout(timer);
+    if (activeLookupController === controller) activeLookupController = null;
   }
 }
 
