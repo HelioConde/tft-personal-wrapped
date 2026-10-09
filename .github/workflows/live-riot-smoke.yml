@@ -1,6 +1,11 @@
 name: Live Riot Smoke
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/live-backend-smoke.mjs"
+      - ".github/workflows/live-riot-smoke.yml"
   workflow_dispatch:
   schedule:
     - cron: "17 10 * * 1"
@@ -9,7 +14,19 @@ permissions:
   contents: read
 
 jobs:
-  live-riot:
+  backend-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Query real Riot TFT backend (not GitHub Pages)
+        run: node scripts/live-backend-smoke.mjs
+
+  published-site:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -17,19 +34,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
-      - run: npm ci
+      - run: npm install --no-audit --no-fund
       - run: npx playwright install --with-deps chromium
-      - name: Smoke production with real Riot data
+      - name: Check published Pages UX with real Riot data
         env:
           LIVE_RIOT_SMOKE: "1"
           PLAYWRIGHT_BASE_URL: https://helioconde.github.io/tft-personal-wrapped/
         run: npx playwright test tests/live-riot.spec.js
-      - name: Upload Playwright report on failure
+      - name: Upload report on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: tft-wrapped-live-riot-smoke
+          name: tft-wrapped-published-smoke
           path: |
             test-results/
             playwright-report/
