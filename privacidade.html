@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Privacidade, fontes de dados e transparência do TFT Wrapped.">
+  <link rel="canonical" href="https://helioconde.github.io/tft-personal-wrapped/privacidade.html">
+  <link rel="stylesheet" href="styles.css">
+  <title>Privacidade e transparência — TFT Wrapped</title>
+</head>
+<body>
+<div class="page">
+  <header class="shell topbar">
+    <a class="brand" href="./">TFT <span>Wrapped</span></a>
+    <a class="ghost" href="./">← Voltar ao Wrapped</a>
+  </header>
+  <main class="shell">
+    <article class="panel intro legal-content">
+      <div class="eyebrow">PRIVACIDADE · DADOS · RIOT</div>
+      <h1>Transparência sobre sua retrospectiva.</h1>
+      <p>Atualizado em 9 de outubro de 2026.</p>
+      <h2>Quais dados são consultados?</h2>
+      <p>Ao pesquisar um Riot ID, o navegador envia o nome, a tag e a região ao endpoint TFT do Supabase compartilhado com o ZeroTwo, que consulta APIs da Riot. A resposta pode incluir histórico recente de partidas, unidades, atributos das composições e colocações. O serviço pode usar caches de partidas para limitar consultas repetidas à Riot.</p>
+      <h2>Limites da amostra</h2>
+      <p>As estatísticas representam no máximo 20 partidas recentes recebidas do backend. Os períodos de 7 dias, 30 dias e set filtram essa amostra disponível, e não todo o histórico da sua conta ou do set. Caches antigos são sinalizados quando usados.</p>
+      <h2>Armazenamento do navegador</h2>
+      <p>Este frontend usa armazenamento local para a preferência de idioma. Riot IDs em links compartilhados também podem aparecer no histórico do navegador e nos registros normais do serviço de hospedagem. Não há cadastro de conta nesta interface.</p>
+      <h2>Modo demonstrativo e anúncios</h2>
+      <p>Sem dados recentes da Riot, o app pode exibir uma demonstração claramente identificada, que não deve ser confundida com resultados do jogador. Os espaços de anúncio estão desativados; nenhuma publicidade é inserida por este aplicativo nesta versão.</p>
+      <h2>Serviços e contato</h2>
+      <p>A hospedagem é feita pelo GitHub Pages (quando habilitado) e a consulta de dados pelo Supabase e pela Riot. Para relatar correção de dados ou solicitar informações sobre o serviço, consulte o <a href="https://github.com/HelioConde/tft-personal-wrapped/issues">repositório no GitHub</a>.</p>
+      <h2>Aviso sobre marcas</h2>
+      <p>TFT Wrapped não é endossado pela Riot Games e não reflete opiniões da Riot. Teamfight Tactics, Riot Games e marcas relacionadas pertencem à Riot Games, Inc.</p>
+      <hr>
+      <h2 lang="en">Privacy summary (English)</h2>
+      <p lang="en">Your Riot ID and platform are sent to the TFT Supabase backend to query recent Riot match information. The app only summarizes up to 20 available recent matches, not your full set history. A saved older response is labeled as cached, and demonstration statistics are labeled as demo. The website stores your language choice locally; shared URLs may include your Riot ID. Advertisements are not active in this version. TFT Wrapped is not endorsed by Riot Games.</p>
+    </article>
+  </main>
+  <footer class="shell footer"><a href="./">← TFT Wrapped</a></footer>
+</div>
+</body>
+</html>
