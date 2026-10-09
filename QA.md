@@ -17,13 +17,15 @@
 
 ## Gate humano / produção
 
-- [ ] confirmar workflow QA verde após a integração real;
-- [ ] confirmar deploy do GitHub Pages;
-- [ ] testar AlchemyFlames#BR1 em produção;
+- [x] confirmar QA automático verde após integração ao endpoint direto `public-tft-profile`;
+- [ ] **Habilitar Pages manualmente** em Settings → Pages → Source: GitHub Actions; falta permissão administrativa nesta conexão, por isso o deploy falha em `configure-pages`. Depois reexecutar o workflow e verificar publicação.
+- [x] validar **backend real** `AlchemyFlames#BR1` com 20 partidas via [Live Riot Smoke](https://github.com/HelioConde/tft-personal-wrapped/actions/runs/37975786629);
+- [ ] testar `AlchemyFlames#BR1` na **página publicada** após habilitar Pages;
 - [ ] testar pelo menos mais 2 Riot IDs TFT;
 - [ ] validar conta sem histórico recente;
 - [ ] revisar nomes de traits/unidades/augments retornados pela Riot;
-- [ ] revisar visual desktop/mobile publicado;
+- [x] validar capturas de demo e painel preenchido (desktop/mobile) via [Visual Snapshot](https://github.com/HelioConde/tft-personal-wrapped/actions/runs/37976197891), sem overflow, imagens quebradas ou erros;
+- [ ] revisar visual desktop/mobile **publicado** após habilitar Pages;
 - [ ] gerar e compartilhar o PNG em navegador/celular real.
 
-Depois deste checklist: **MVP 1.0 concluído / features congeladas**.
+**MVP técnico funcional; publicação e homologação externa pendentes.** Novas features congeladas; abrir somente correções P0/P1, acessibilidade, segurança e compliance.
