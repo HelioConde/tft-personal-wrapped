@@ -318,7 +318,8 @@ async function loadProfile(gameName, tagLine, platform) {
   }
 
   setStatus("loading");
-  const timer = setTimeout(() => controller.abort(), 16000);
+  // Riot match details can require more than 5 seconds; validated direct query took 9 seconds.
+  const timer = setTimeout(() => controller.abort(), 35000);
 
   try {
     const response = await fetch(endpoint, {
