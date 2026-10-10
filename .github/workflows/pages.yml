@@ -41,7 +41,14 @@ jobs:
           mkdir -p _site
           cp index.html styles.css artwork.css app.js assets-config.js assets-enabled.js backend-config.js live-update.js privacidade.html _site/
           if [ -d assets ]; then cp -R assets _site/assets; fi
-          if [ -f assets/tft-wrapped/icons/crown.webp ] && [ -f assets/tft-wrapped/illustrations/hero-cosmic-arena.webp ]; then
+          count=0
+          for name in crown swords shield star analytics share augment mascot lock search; do
+            if [ -s "assets/tft-wrapped/icons/${name}.webp" ]; then count=$((count + 1)); fi
+          done
+          for name in hero-cosmic-arena search-riot-id recent-matches share-wrapped favorite-comps augments-and-units placements-and-records mobile-wrapped privacy-archive demo-mode; do
+            if [ -s "assets/tft-wrapped/illustrations/${name}.webp" ]; then count=$((count + 1)); fi
+          done
+          if [ "$count" -eq 20 ]; then
             printf 'window.TFT_WRAPPED_ASSETS_ENABLED = true;\n' > _site/assets-enabled.js
           else
             printf 'window.TFT_WRAPPED_ASSETS_ENABLED = false;\n' > _site/assets-enabled.js
