@@ -1,6 +1,6 @@
 # Visual audit
 
-Generated: 2026-10-10T00:16:21.989Z
+Generated: 2026-10-10T00:30:24.161Z
 
 ## desktop-full.png
 
@@ -9,8 +9,8 @@ Generated: 2026-10-10T00:16:21.989Z
 - Overflow elements: 0
 - Small tap targets: 0
 - Tiny text nodes (<10px): 0
-- Console errors: 1
-- Failed requests: 1
+- Console errors: 0
+- Failed requests: 0
 - Broken images: 0
 
 ## mobile-full.png
@@ -20,8 +20,8 @@ Generated: 2026-10-10T00:16:21.989Z
 - Overflow elements: 0
 - Small tap targets: 0
 - Tiny text nodes (<10px): 0
-- Console errors: 1
-- Failed requests: 1
+- Console errors: 0
+- Failed requests: 0
 - Broken images: 0
 
 ## desktop-populated.png
@@ -31,8 +31,8 @@ Generated: 2026-10-10T00:16:21.989Z
 - Overflow elements: 0
 - Small tap targets: 0
 - Tiny text nodes (<10px): 0
-- Console errors: 1
-- Failed requests: 1
+- Console errors: 0
+- Failed requests: 0
 - Broken images: 0
 
 ## mobile-populated.png
@@ -42,6 +42,6 @@ Generated: 2026-10-10T00:16:21.989Z
 - Overflow elements: 0
 - Small tap targets: 0
 - Tiny text nodes (<10px): 0
-- Console errors: 1
-- Failed requests: 1
+- Console errors: 0
+- Failed requests: 0
 - Broken images: 0
