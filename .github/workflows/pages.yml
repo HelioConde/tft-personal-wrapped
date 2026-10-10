@@ -7,6 +7,7 @@ on:
       - 'index.html'
       - 'styles.css'
       - 'app.js'
+      - 'assets-config.js'
       - 'backend-config.js'
       - 'live-update.js'
       - 'privacidade.html'
@@ -36,7 +37,7 @@ jobs:
           DEPLOY_SHA: ${{ github.sha }}
         run: |
           mkdir -p _site
-          cp index.html styles.css app.js backend-config.js live-update.js privacidade.html _site/
+          cp index.html styles.css app.js assets-config.js backend-config.js live-update.js privacidade.html _site/
           if [ -d assets ]; then cp -R assets _site/assets; fi
           printf '{"sha":"%s","publishedAt":"%s"}\n' "$DEPLOY_SHA" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > _site/version.json
           test -s _site/index.html
