@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T18:52:17.999Z",
+  "generatedAt": "2026-10-10T00:16:21.989Z",
   "baseUrl": "http://127.0.0.1:4173/",
   "captures": [
     {
@@ -18,8 +18,15 @@
       "smallTapTargets": [],
       "tinyText": [],
       "brokenImages": [],
-      "consoleErrors": [],
-      "failedRequests": []
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "failedRequests": [
+        {
+          "url": "http://127.0.0.1:4173/assets-config.js",
+          "error": "net::ERR_ABORTED"
+        }
+      ]
     },
     {
       "name": "mobile-full.png",
@@ -37,8 +44,15 @@
       "smallTapTargets": [],
       "tinyText": [],
       "brokenImages": [],
-      "consoleErrors": [],
-      "failedRequests": []
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "failedRequests": [
+        {
+          "url": "http://127.0.0.1:4173/assets-config.js",
+          "error": "net::ERR_ABORTED"
+        }
+      ]
     },
     {
       "name": "desktop-populated.png",
@@ -56,8 +70,15 @@
       "smallTapTargets": [],
       "tinyText": [],
       "brokenImages": [],
-      "consoleErrors": [],
-      "failedRequests": []
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "failedRequests": [
+        {
+          "url": "http://127.0.0.1:4173/assets-config.js",
+          "error": "net::ERR_ABORTED"
+        }
+      ]
     },
     {
       "name": "mobile-populated.png",
@@ -75,8 +96,15 @@
       "smallTapTargets": [],
       "tinyText": [],
       "brokenImages": [],
-      "consoleErrors": [],
-      "failedRequests": []
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "failedRequests": [
+        {
+          "url": "http://127.0.0.1:4173/assets-config.js",
+          "error": "net::ERR_ABORTED"
+        }
+      ]
     }
   ]
 }

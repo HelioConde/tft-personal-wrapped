@@ -1,5 +1,14 @@
 {
-  "generatedAt": "2026-10-09T18:52:17.999Z",
-  "passed": true,
-  "failures": []
+  "generatedAt": "2026-10-10T00:16:21.989Z",
+  "passed": false,
+  "failures": [
+    "desktop-full.png: 1 console error(s)",
+    "desktop-full.png: 1 failed request(s)",
+    "mobile-full.png: 1 console error(s)",
+    "mobile-full.png: 1 failed request(s)",
+    "desktop-populated.png: 1 console error(s)",
+    "desktop-populated.png: 1 failed request(s)",
+    "mobile-populated.png: 1 console error(s)",
+    "mobile-populated.png: 1 failed request(s)"
+  ]
 }
