@@ -1,0 +1,1 @@
+window.TFT_WRAPPED_ASSETS_ENABLED=false;
