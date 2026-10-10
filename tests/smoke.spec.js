@@ -136,3 +136,55 @@ test("identifies an empty historical cache as unavailable, not a real empty set"
   await page.getByRole("button", { name: "Ver meu Wrapped" }).click();
   await expect(page.locator("[data-mode-label]")).toContainText("cache antigo não contém partidas");
 });
+
+test("without the WebP pack the page has no broken illustration requests", async ({ page }) => {
+  const webpRequests = [];
+  page.on("request", request => {
+    if (request.url().endsWith(".webp")) webpRequests.push(request.url());
+  });
+  await page.goto("/");
+  await expect(page.locator("[data-art-icon].art-loaded")).toHaveCount(0);
+  await expect(page.locator("[data-art-illustration].art-loaded")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Ver meu Wrapped" })).toBeVisible();
+  await page.locator(".walkthrough").scrollIntoViewIfNeeded();
+  expect(webpRequests).toEqual([]);
+});
+
+test("optional image pack loads real WebP UI slots and lazy visuals without losing mobile usability", async ({ page }) => {
+  const tinyWebP = Buffer.from("UklGRjYAAABXRUJQVlA4ICoAAABwAQCdASoEAAQAAgA0JaACdAGgAAD+y7f/0JP/+CT//gk/MzVlqIb8AAA=", "base64");
+  const seen = [];
+  await page.route("**/assets-enabled.js", route => route.fulfill({
+    status: 200, contentType: "application/javascript",
+    body: "window.TFT_WRAPPED_ASSETS_ENABLED=true;"
+  }));
+  await page.route("**/*.webp", route => {
+    seen.push(route.request().url());
+    return route.fulfill({ status: 200, contentType: "image/webp", body: tinyWebP });
+  });
+  await page.goto("/");
+  await expect(page.locator(".brand .art-icon.art-loaded")).toHaveCount(1);
+  await expect(page.locator(".feature-card .art-feature.art-loaded")).toHaveCount(1);
+  await page.locator(".walkthrough").scrollIntoViewIfNeeded();
+  await expect(page.locator(".walkthrough .art-step.art-loaded")).toHaveCount(3);
+  expect(seen.some(url => url.includes("icons/search.webp"))).toBe(true);
+  expect(seen.some(url => url.includes("illustrations/recent-matches.webp"))).toBe(true);
+  await page.setViewportSize({ width: 390, height: 844 });
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await expect(page.getByRole("button", { name: "Ver meu Wrapped" })).toBeVisible();
+});
+
+test("privacy archive artwork is optional and accessible when enabled", async ({ page }) => {
+  const tinyWebP = Buffer.from("UklGRjYAAABXRUJQVlA4ICoAAABwAQCdASoEAAQAAgA0JaACdAGgAAD+y7f/0JP/+CT//gk/MzVlqIb8AAA=", "base64");
+  await page.route("**/assets-enabled.js", route => route.fulfill({
+    status: 200, contentType: "application/javascript",
+    body: "window.TFT_WRAPPED_ASSETS_ENABLED=true;"
+  }));
+  await page.route("**/*.webp", route => route.fulfill({
+    status: 200, contentType: "image/webp", body: tinyWebP
+  }));
+  await page.goto("/privacidade.html");
+  await expect(page.getByRole("heading", { name: "Transparência sobre sua retrospectiva." })).toBeVisible();
+  await expect(page.locator(".privacy-art.art-loaded")).toHaveCount(1);
+  await expect(page.locator(".eyebrow .art-icon.art-loaded")).toHaveCount(1);
+});
