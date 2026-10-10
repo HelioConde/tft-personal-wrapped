@@ -1,0 +1,10 @@
+/* Optional celestial assets render only after files are available. */
+.art-icon,.art-feature{display:none}
+.art-icon.art-loaded{display:inline-flex;align-items:center;vertical-align:middle;margin-right:6px}
+.art-icon img{width:24px;height:24px;object-fit:contain}
+.brand .art-icon img{width:34px;height:34px}
+.brand{display:flex;align-items:center;gap:4px}
+.feature-card{position:relative;isolation:isolate;overflow:hidden}
+.art-feature.art-loaded{display:block;position:absolute;inset:0;z-index:-1;opacity:.3}
+.art-feature img{display:block;width:100%;height:100%;object-fit:cover}
+.search .primary,.share-card .primary{display:inline-flex;align-items:center;justify-content:center;gap:6px}
