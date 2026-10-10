@@ -12,6 +12,23 @@ O workflow [Import TFT Wrapped Images](.github/workflows/import-images.yml) vali
 
 **Atenção:** enquanto o ZIP não for enviado, este repositório contém a configuração e os scripts, não as imagens binárias.
 
+## Integração no layout — revisão de 09/10/2026
+
+O código já está preparado para mostrar os 20 WebP sem sacrificar a usabilidade:
+
+- Hero/identidade: arena cósmica em fundo sutil.
+- Busca e cabeçalho: ícones transparentes de pesquisa e mascote.
+- Cards de comps, colocações, unidades e recordes: ilustrações decorativas com opacidade reduzida, mantendo os números legíveis.
+- Três passos explicativos: pesquisar Riot ID, consultar partidas recentes e compartilhar o PNG.
+- Card de compartilhamento, aviso de demonstração e página de privacidade: visuais secundários.
+- Carregamento sob demanda: a ilustração começa a ser solicitada quando o card entra perto da área visível. Ícones são carregados prioritariamente.
+- Sem upload: as imagens continuam ocultas e **não geram pedidos 404**.
+- Liberação automática: `assets-enabled.js` é gerado pelo Pages e só ativa o pacote quando **20/20 WebP** são encontrados no deploy.
+
+Verificações: [Browser QA](https://github.com/HelioConde/tft-personal-wrapped/actions/runs/38010135001) aprovou o fallback sem arquivos e a simulação de imagens ativadas. [Capture Visual Snapshot](https://github.com/HelioConde/tft-personal-wrapped/actions/runs/38010198663) passou em desktop e mobile, ambos em demonstração e dados preenchidos (sem arquivos reais instalados).
+
+**Não confundir:** imagens simuladas nos testes não significam upload ao GitHub; a importação real ainda exige o envio do ZIP.
+
 ## Destino no repositório
 
 Extraia o ZIP e envie as imagens para:
