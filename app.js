@@ -69,7 +69,7 @@ const i18n = {
     stepMatchesBody: "Compare comps, augments e resultados das partidas disponíveis.",
     stepShareTitle: "Guarde seus destaques",
     stepShareBody: "Gere um card PNG com a sua retrospectiva.",
-    demoDisclosure: "Ainda não pesquisou? Os números iniciais são demonstrativos e não representam sua conta."
+    demoDisclosure: "Antes da busca, os números são demonstrativos. Após consultar, mostramos somente a amostra recente disponível."
   },
   en: {
     eyebrow: "Your recent TFT story",
