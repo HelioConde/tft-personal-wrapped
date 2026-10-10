@@ -59,7 +59,17 @@ const i18n = {
     share: "Compartilhar",
     shareTitle: "Seu TFT Wrapped em um card.",
     shareText: "Gere um PNG com os destaques do periodo e compartilhe seu resultado.",
-    generate: "Gerar card"
+    generate: "Gerar card",
+    stepsEyebrow: "Sua retrospectiva em três passos",
+    stepsHeading: "Das partidas à sua história.",
+    stepsScope: "O resumo usa somente a amostra recente devolvida pela Riot.",
+    stepSearchTitle: "Encontre seu perfil",
+    stepSearchBody: "Informe Nome#TAG e a região da sua conta.",
+    stepMatchesTitle: "Relembre suas partidas",
+    stepMatchesBody: "Compare comps, augments e resultados das partidas disponíveis.",
+    stepShareTitle: "Guarde seus destaques",
+    stepShareBody: "Gere um card PNG com a sua retrospectiva.",
+    demoDisclosure: "Ainda não pesquisou? Os números iniciais são demonstrativos e não representam sua conta."
   },
   en: {
     eyebrow: "Your recent TFT story",
@@ -76,7 +86,17 @@ const i18n = {
     share: "Share",
     shareTitle: "Your TFT Wrapped in one card.",
     shareText: "Generate a PNG with the period highlights and share your result.",
-    generate: "Generate card"
+    generate: "Generate card",
+    stepsEyebrow: "Your recap in three steps",
+    stepsHeading: "From matches to memories.",
+    stepsScope: "This recap uses only the recent sample provided by Riot.",
+    stepSearchTitle: "Find your profile",
+    stepSearchBody: "Enter your Name#TAG and account region.",
+    stepMatchesTitle: "Explore your matches",
+    stepMatchesBody: "Compare comps, augments and results from available matches.",
+    stepShareTitle: "Keep your highlights",
+    stepShareBody: "Generate a PNG card with your recap.",
+    demoDisclosure: "Not searched yet? Initial statistics are a demo and do not represent your account."
   }
 };
 
