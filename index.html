@@ -29,7 +29,7 @@
 
   <main class="shell">
     <section class="hero">
-      <article class="panel intro">
+      <article class="panel intro art-panel"><div class="art-feature" data-art-illustration="search-riot-id" aria-hidden="true"></div>
         <div class="eyebrow" data-i18n="eyebrow">Sua história recente no TFT</div>
         <h1 data-i18n="hero">Seu set, contado como uma história.</h1>
         <p data-i18n="sub">Menos tabela, mais memória: descubra suas comps favoritas, augments marcantes, melhores resultados e recordes do período.</p>
@@ -52,35 +52,35 @@
     </section>
 
     <section class="grid" data-dashboard>
-      <article class="panel card span-3"><div class="muted">Partidas</div><div class="metric" data-metric="games">23</div></article>
+      <article class="panel card span-3"><div class="muted"><span class="art-icon" data-art-icon="analytics" aria-hidden="true"></span>Partidas</div><div class="metric" data-metric="games">23</div></article>
       <article class="panel card span-3"><div class="muted">Média</div><div class="metric" data-metric="avg">4,1</div></article>
       <article class="panel card span-3"><div class="muted">Top 4</div><div class="metric" data-metric="top4">61%</div></article>
-      <article class="panel card span-3"><div class="muted">Vitórias</div><div class="metric" data-metric="wins">4</div></article>
+      <article class="panel card span-3"><div class="muted"><span class="art-icon" data-art-icon="crown" aria-hidden="true"></span>Vitórias</div><div class="metric" data-metric="wins">4</div></article>
 
-      <article class="panel card span-8">
+      <article class="panel card span-8 art-panel"><div class="art-feature" data-art-illustration="favorite-comps" aria-hidden="true"></div>
         <div class="section-title"><h2 data-i18n="comps">Comps que definiram seu período</h2><span class="muted">por frequência</span></div>
         <div class="list" data-comps></div>
       </article>
-      <article class="panel card span-4">
+      <article class="panel card span-4 art-panel"><div class="art-feature" data-art-illustration="placements-and-records" aria-hidden="true"></div>
         <div class="section-title"><h2 data-i18n="placements">Colocações</h2></div>
         <div class="place-grid" data-placements></div>
       </article>
 
-      <article class="panel card span-6">
+      <article class="panel card span-6 art-panel"><div class="art-feature" data-art-illustration="augments-and-units" aria-hidden="true"></div>
         <div class="section-title"><h2 data-i18n="units">Unidades mais presentes</h2><span class="muted">top 5</span></div>
         <div class="list" data-units></div>
       </article>
       <article class="panel card span-6">
-        <div class="section-title"><h2 data-i18n="augments">Augments marcantes</h2><span class="muted">uso + desempenho</span></div>
+        <div class="section-title"><h2><span class="art-icon" data-art-icon="augment" aria-hidden="true"></span><span data-i18n="augments">Augments marcantes</span></h2><span class="muted">uso + desempenho</span></div>
         <div class="list" data-augments></div>
       </article>
 
-      <article class="panel card span-8">
-        <div class="section-title"><h2 data-i18n="records">Seus recordes</h2></div>
+      <article class="panel card span-8 art-panel"><div class="art-feature" data-art-illustration="placements-and-records" aria-hidden="true"></div>
+        <div class="section-title"><h2><span class="art-icon" data-art-icon="star" aria-hidden="true"></span><span data-i18n="records">Seus recordes</span></h2></div>
         <div class="list" data-records></div>
       </article>
       <article class="panel card span-4">
-        <div class="share-card">
+        <div class="share-card art-panel"><div class="art-feature" data-art-illustration="mobile-wrapped" aria-hidden="true"></div>
           <div class="eyebrow" data-i18n="share">Compartilhar</div>
           <h2 data-i18n="shareTitle">Seu TFT Wrapped em um card.</h2>
           <p class="muted" data-i18n="shareText">Gere um PNG com os destaques do período e compartilhe seu resultado.</p>
@@ -89,6 +89,40 @@
       </article>
 
       <div class="span-12 ad-slot" hidden aria-hidden="true"></div>
+    </section>
+    <section class="walkthrough" aria-labelledby="walkthrough-title">
+      <div class="walkthrough-heading">
+        <div>
+          <div class="eyebrow" data-i18n="stepsEyebrow">Sua retrospectiva em três passos</div>
+          <h2 id="walkthrough-title" data-i18n="stepsHeading">Das partidas à sua história.</h2>
+        </div>
+        <p class="muted" data-i18n="stepsScope">O resumo usa somente a amostra recente devolvida pela Riot.</p>
+      </div>
+      <div class="walkthrough-grid">
+        <article class="panel step-card">
+          <div class="art-step" data-art-illustration="search-riot-id" aria-hidden="true"></div>
+          <span class="step-number">01</span>
+          <h3 data-i18n="stepSearchTitle">Encontre seu perfil</h3>
+          <p data-i18n="stepSearchBody">Informe Nome#TAG e a região da sua conta.</p>
+        </article>
+        <article class="panel step-card">
+          <div class="art-step" data-art-illustration="recent-matches" aria-hidden="true"></div>
+          <span class="step-number">02</span>
+          <h3 data-i18n="stepMatchesTitle">Relembre suas partidas</h3>
+          <p data-i18n="stepMatchesBody">Compare comps, augments e resultados das partidas disponíveis.</p>
+        </article>
+        <article class="panel step-card">
+          <div class="art-step" data-art-illustration="share-wrapped" aria-hidden="true"></div>
+          <span class="step-number">03</span>
+          <h3 data-i18n="stepShareTitle">Guarde seus destaques</h3>
+          <p data-i18n="stepShareBody">Gere um card PNG com a sua retrospectiva.</p>
+        </article>
+      </div>
+      <div class="visual-note panel">
+        <div class="art-feature" data-art-illustration="demo-mode" aria-hidden="true"></div>
+        <span class="art-icon" data-art-icon="shield" aria-hidden="true"></span>
+        <p data-i18n="demoDisclosure">Ainda não pesquisou? Os números iniciais são demonstrativos e não representam sua conta.</p>
+      </div>
     </section>
   </main>
 
