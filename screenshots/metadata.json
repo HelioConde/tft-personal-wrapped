@@ -1,9 +1,11 @@
 {
-  "generatedAt": "2026-10-10T00:41:04.133Z",
+  "generatedAt": "2026-10-10T00:43:06.257Z",
   "baseUrl": "http://127.0.0.1:4173/",
+  "artworkPresent": false,
   "captures": [
     {
       "name": "desktop-full.png",
+      "artworkPresent": false,
       "variant": "explicit demo",
       "viewport": {
         "width": 1440,
@@ -11,7 +13,7 @@
       },
       "title": "TFT Wrapped — sua retrospectiva de TFT",
       "width": 1440,
-      "height": 2514,
+      "height": 2399,
       "viewportWidth": 1440,
       "viewportHeight": 1000,
       "overflow": [],
@@ -23,6 +25,7 @@
     },
     {
       "name": "mobile-full.png",
+      "artworkPresent": false,
       "variant": "explicit demo",
       "viewport": {
         "width": 390,
@@ -30,7 +33,7 @@
       },
       "title": "TFT Wrapped — sua retrospectiva de TFT",
       "width": 390,
-      "height": 4241,
+      "height": 4423,
       "viewportWidth": 390,
       "viewportHeight": 844,
       "overflow": [],
@@ -42,6 +45,7 @@
     },
     {
       "name": "desktop-populated.png",
+      "artworkPresent": false,
       "variant": "Riot-shaped fixture",
       "viewport": {
         "width": 1440,
@@ -49,7 +53,7 @@
       },
       "title": "TFT Wrapped — sua retrospectiva de TFT",
       "width": 1440,
-      "height": 2311,
+      "height": 2196,
       "viewportWidth": 1440,
       "viewportHeight": 1000,
       "overflow": [],
@@ -61,6 +65,7 @@
     },
     {
       "name": "mobile-populated.png",
+      "artworkPresent": false,
       "variant": "Riot-shaped fixture",
       "viewport": {
         "width": 390,
@@ -68,7 +73,7 @@
       },
       "title": "TFT Wrapped — sua retrospectiva de TFT",
       "width": 390,
-      "height": 4048,
+      "height": 4230,
       "viewportWidth": 390,
       "viewportHeight": 844,
       "overflow": [],
