@@ -1,29 +1,74 @@
-/* Optional visual pack. No image requests or layout jumps until assets exist. */
+/* Optional 20-file WebP artwork bundle. Never request absent assets. */
 (() => {
-  const root = "assets/tft-wrapped/";
-  const ready = window.TFT_WRAPPED_ASSETS_ENABLED === true;
-  if (!ready) return;
-  const knownIcons = new Set(["crown","swords","shield","star","analytics","share","augment","mascot","lock","search"]);
-  const knownIllustrations = new Set(["hero-cosmic-arena","search-riot-id","recent-matches","share-wrapped","favorite-comps","augments-and-units","placements-and-records","mobile-wrapped","privacy-archive","demo-mode"]);
-  for (const el of document.querySelectorAll("[data-art-icon]")) {
-    const id = el.dataset.artIcon;
-    if (!knownIcons.has(id)) continue;
-    const image = new Image();
-    image.src = root + "icons/" + id + ".webp";
-    image.alt = "";
-    image.width = 40;
-    image.height = 40;
-    image.decoding = "async";
-    image.onload = () => { el.replaceChildren(image); el.classList.add("art-loaded"); };
+  if (window.TFT_WRAPPED_ASSETS_ENABLED !== true) return;
+
+  const root = new URL("assets/tft-wrapped/", document.baseURI);
+  const icons = new Set([
+    "crown", "swords", "shield", "star", "analytics",
+    "share", "augment", "mascot", "lock", "search"
+  ]);
+  const illustrations = new Set([
+    "hero-cosmic-arena", "search-riot-id", "recent-matches",
+    "share-wrapped", "favorite-comps", "augments-and-units",
+    "placements-and-records", "mobile-wrapped", "privacy-archive", "demo-mode"
+  ]);
+  document.documentElement.classList.add("tft-art-enabled");
+
+  function addImage(element, folder, name, priority = "low") {
+    const img = new Image();
+    img.alt = "";
+    img.decoding = "async";
+    img.setAttribute("aria-hidden", "true");
+    img.fetchPriority = priority;
+    if (folder === "icons") {
+      img.width = 40;
+      img.height = 40;
+    }
+    img.onload = () => {
+      element.replaceChildren(img);
+      element.classList.add("art-loaded");
+    };
+    img.onerror = () => {
+      // A missing/corrupt image must not remove visible text or crash the page.
+      element.replaceChildren();
+      element.classList.remove("art-loaded");
+    };
+    img.src = new URL(folder + "/" + name + ".webp", root).href;
   }
-  for (const el of document.querySelectorAll("[data-art-illustration]")) {
-    const id = el.dataset.artIllustration;
-    if (!knownIllustrations.has(id)) continue;
-    const image = new Image();
-    image.src = root + "illustrations/" + id + ".webp";
-    image.alt = "";
-    image.decoding = "async";
-    image.loading = id === "hero-cosmic-arena" ? "eager" : "lazy";
-    image.onload = () => { el.replaceChildren(image); el.classList.add("art-loaded"); };
+
+  for (const element of document.querySelectorAll("[data-art-icon]")) {
+    const name = element.dataset.artIcon;
+    if (icons.has(name)) addImage(element, "icons", name);
+  }
+
+  const artwork = [...document.querySelectorAll("[data-art-illustration]")]
+    .filter(element => illustrations.has(element.dataset.artIllustration));
+  const loadArtwork = element => {
+    if (element.dataset.artRequested === "true") return;
+    element.dataset.artRequested = "true";
+    const name = element.dataset.artIllustration;
+    addImage(element, "illustrations", name, name === "hero-cosmic-arena" ? "high" : "low");
+  };
+
+  // Watch the visible containing card, not the hidden artwork container:
+  // IntersectionObserver never intersects elements with display:none.
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const target = entry.target;
+        observer.unobserve(target);
+        for (const element of artwork) {
+          if ((element.closest(".panel, .step-card, .visual-note") || element) === target) {
+            loadArtwork(element);
+          }
+        }
+      }
+    }, { rootMargin: "250px" });
+    const targets = new Set(artwork.map(element =>
+      element.closest(".panel, .step-card, .visual-note") || element));
+    targets.forEach(element => observer.observe(element));
+  } else {
+    artwork.forEach(loadArtwork);
   }
 })();
