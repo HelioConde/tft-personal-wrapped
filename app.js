@@ -96,7 +96,7 @@ const i18n = {
     stepMatchesBody: "Compare comps, augments and results from available matches.",
     stepShareTitle: "Keep your highlights",
     stepShareBody: "Generate a PNG card with your recap.",
-    demoDisclosure: "Not searched yet? Initial statistics are a demo and do not represent your account."
+    demoDisclosure: "Before searching, statistics are illustrative. After searching, only available recent matches are summarized."
   }
 };
 
