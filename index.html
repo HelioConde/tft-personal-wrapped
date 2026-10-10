@@ -17,7 +17,7 @@
 <body>
 <div class="page">
   <header class="shell topbar">
-    <div class="brand">TFT <span>Wrapped</span></div>
+    <div class="brand"><span class="art-icon" data-art-icon="mascot" aria-hidden="true"></span>TFT <span>Wrapped</span></div>
     <div class="controls">
       <button class="chip" data-period="week">7 dias</button>
       <button class="chip" data-period="month">30 dias</button>
@@ -36,11 +36,11 @@
         <form class="search" data-search>
           <input name="riotId" placeholder="Nome#TAG" autocomplete="off" aria-label="Riot ID">
           <select name="region" aria-label="Servidor"><option value="br1">BR</option><option value="na1">NA</option><option value="euw1">EUW</option><option value="eun1">EUNE</option><option value="kr">KR</option><option value="jp1">JP</option><option value="la1">LAN</option><option value="la2">LAS</option><option value="oc1">OCE</option></select>
-          <button class="primary" type="submit" data-i18n="search">Ver meu Wrapped</button>
+          <button class="primary" type="submit"><span class="art-icon" data-art-icon="search" aria-hidden="true"></span><span data-i18n="search">Ver meu Wrapped</span></button>
         </form>
         <p class="muted" data-mode-label aria-live="polite">Modo demonstrativo — pesquise um Riot ID para carregar dados reais.</p>
       </article>
-      <article class="panel feature-card">
+      <article class="panel feature-card"><div class="art-feature" data-art-illustration="hero-cosmic-arena" aria-hidden="true"></div>
         <div>
           <div class="eyebrow" data-i18n="identity">Identidade do período</div>
           <div class="big-number">Flex</div>
@@ -83,7 +83,7 @@
           <div class="eyebrow" data-i18n="share">Compartilhar</div>
           <h2 data-i18n="shareTitle">Seu TFT Wrapped em um card.</h2>
           <p class="muted" data-i18n="shareText">Gere um PNG com os destaques do período e compartilhe seu resultado.</p>
-          <button class="primary" type="button" data-share data-i18n="generate">Gerar card</button>
+          <button class="primary" type="button" data-share><span class="art-icon" data-art-icon="share" aria-hidden="true"></span><span data-i18n="generate">Gerar card</span></button>
         </div>
       </article>
 
@@ -93,6 +93,7 @@
 
   <footer class="shell footer">TFT Wrapped · PT-BR/EN · amostra recente da Riot, nunca histórico completo · <a href="privacidade.html">Privacidade e transparência</a><p>Não é endossado pela Riot Games. Teamfight Tactics e marcas associadas pertencem à Riot Games, Inc.</p></footer>
 </div>
+<script src="assets-config.js"></script>
 <script src="backend-config.js"></script>
 <script src="app.js"></script>
 <script src="live-update.js"></script>
