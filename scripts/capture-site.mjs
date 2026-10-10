@@ -5,11 +5,29 @@ import path from "node:path";
 const baseUrl = process.env.SCREENSHOT_BASE_URL || "http://127.0.0.1:4173/";
 const outputDir = process.env.SCREENSHOT_DIR || "screenshots";
 await fs.mkdir(outputDir, { recursive: true });
+const expectedArtwork = [
+  ...["crown","swords","shield","star","analytics","share","augment","mascot","lock","search"]
+    .map(name => "icons/" + name + ".webp"),
+  ...["hero-cosmic-arena","search-riot-id","recent-matches","share-wrapped","favorite-comps",
+      "augments-and-units","placements-and-records","mobile-wrapped","privacy-archive","demo-mode"]
+    .map(name => "illustrations/" + name + ".webp")
+];
+const artworkPresent = (await Promise.all(expectedArtwork.map(name =>
+  fs.stat(path.join("assets/tft-wrapped", name)).then(stat => stat.size > 0).catch(() => false)
+))).every(Boolean);
+console.log("Visual artwork bundle:", artworkPresent ? "20/20 files" : "incomplete (fallback)");
+
 
 const browser = await chromium.launch({ headless: true });
 
 async function capture(name, viewport, populated = false) {
   const page = await browser.newPage({ viewport });
+  if (artworkPresent) {
+    await page.route("**/assets-enabled.js", route => route.fulfill({
+      status: 200, contentType: "application/javascript",
+      body: "window.TFT_WRAPPED_ASSETS_ENABLED=true;"
+    }));
+  }
   if (populated) {
     // Deterministic Riot-shaped dataset so screenshots cover the real-data UI,
     // without network, Riot rate limits or guessing any user's actual history.
@@ -54,6 +72,18 @@ async function capture(name, viewport, populated = false) {
     await page.getByLabel("Riot ID").fill("VisualReference#BR1");
     await page.getByRole("button", { name: "Ver meu Wrapped" }).click();
     await page.waitForFunction(() => document.querySelector('[data-metric="games"]')?.textContent?.trim() === "3", null, { timeout: 10000 });
+  }
+  if (artworkPresent) {
+    // Force lazy artwork near the viewport before taking a full-page screenshot.
+    await page.evaluate(async () => {
+      for (let y = 0; y < document.documentElement.scrollHeight; y += Math.max(360, innerHeight * .75)) {
+        window.scrollTo(0, y);
+        await new Promise(resolve => setTimeout(resolve, 70));
+      }
+      window.scrollTo(0, 0);
+    });
+    await page.waitForFunction(() => [...document.querySelectorAll("[data-art-illustration]")]
+      .every(element => element.classList.contains("art-loaded")), null, { timeout: 12000 });
   }
   await page.waitForTimeout(500);
 
@@ -147,6 +177,7 @@ async function capture(name, viewport, populated = false) {
 
   return {
     name,
+    artworkPresent,
     variant: populated ? "Riot-shaped fixture" : "explicit demo",
     viewport,
     ...audit,
@@ -176,7 +207,7 @@ for (const capture of captures) {
   }
 }
 
-await fs.writeFile(path.join(outputDir, "metadata.json"), JSON.stringify({ generatedAt, baseUrl, captures }, null, 2));
+await fs.writeFile(path.join(outputDir, "metadata.json"), JSON.stringify({ generatedAt, baseUrl, artworkPresent, captures }, null, 2));
 await fs.writeFile(path.join(outputDir, "visual-quality.json"), JSON.stringify({ generatedAt, passed: failures.length === 0, failures }, null, 2));
 
 const lines = ["# Visual audit", "", `Generated: ${generatedAt}`, ""];
